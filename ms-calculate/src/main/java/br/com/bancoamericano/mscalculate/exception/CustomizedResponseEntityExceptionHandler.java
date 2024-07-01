@@ -1,7 +1,7 @@
-package br.com.bancoamericano.mscustomer.exception;
+package br.com.bancoamericano.mscalculate.exception;
 
-import br.com.bancoamericano.mscustomer.exception.exceptions.CustomerNotFoundException;
-import br.com.bancoamericano.mscustomer.exception.exceptions.RequiredObjectIsNullException;
+import br.com.bancoamericano.mscalculate.exception.exceptions.RequiredObjectIsNullException;
+import br.com.bancoamericano.mscalculate.exception.exceptions.RuleNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,8 +32,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CustomerNotFoundException.class)
-    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(CustomerNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(RuleNotFoundException.class)
+    public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(RuleNotFoundException ex, WebRequest request) {
         var response = new ExceptionResponse(new Date(),
                 ex.getMessage(),
                 request.getDescription(false),
