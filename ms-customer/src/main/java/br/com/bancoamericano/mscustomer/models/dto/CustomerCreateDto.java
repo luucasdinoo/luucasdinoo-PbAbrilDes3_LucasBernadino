@@ -32,6 +32,4 @@ public class CustomerCreateDto implements Serializable {
 
     @Email
     private String email;
-
-    private String url_photo;
 }

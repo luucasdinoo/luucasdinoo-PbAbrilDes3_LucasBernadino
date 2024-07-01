@@ -14,6 +14,8 @@ services:
       MYSQL_TCP_PORT: 3306
     ports:
       - "3306:3306"
+    networks:
+      - banco-network
 
   db2:
     image: mysql:8.0
@@ -28,6 +30,8 @@ services:
       MYSQL_TCP_PORT: 3307
     ports:
       - "3307:3307"
+    networks:
+      - banco-network
 
   db3:
     image: mysql:8.0
@@ -42,18 +46,23 @@ services:
       MYSQL_TCP_PORT: 3308
     ports:
       - "3308:3308"
+    networks:
+      - banco-network
 
-  db4:
-    image: mysql:8.0
-    container_name: mysql-msfilestorage
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin123
-      MYSQL_DATABASE: msfilestorage_db
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: admin123
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_TCP_PORT: 3309
     ports:
-      - "3309:3309"
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=123456
+    networks:
+      - banco-network
+
+networks:
+  banco-network:
+    driver: bridge
 

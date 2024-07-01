@@ -9,12 +9,12 @@ import java.util.TimeZone;
 public class GlobalConfigurations {
 
     @Bean
-    ModelMapper modelMapper(){
+    public ModelMapper modelMapper(){
         return new ModelMapper();
     }
 
     @PostConstruct
-    void timeZoneConfi(){
+    void timeZoneConfig(){
         TimeZone.setDefault(TimeZone.getTimeZone("America/Sao_Paulo"));
     }
 }

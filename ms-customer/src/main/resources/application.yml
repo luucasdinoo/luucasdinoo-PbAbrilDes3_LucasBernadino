@@ -1,3 +1,11 @@
+aws:
+  credentials:
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+    access-token: ${AWS_ACCESS_TOKEN}
+  s3:
+    bucket: ${AWS_BUCKET_NAME}
+
 spring:
   application:
     name: mscustomer
