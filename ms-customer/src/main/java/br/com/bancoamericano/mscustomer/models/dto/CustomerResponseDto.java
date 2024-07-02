@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class CustomerResponseDto implements Serializable {
 
+    private Long id;
     private String cpf;
     private String name;
     private String gender;

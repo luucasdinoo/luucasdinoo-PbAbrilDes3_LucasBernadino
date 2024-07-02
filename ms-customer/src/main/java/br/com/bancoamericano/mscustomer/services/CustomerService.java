@@ -27,16 +27,16 @@ public class CustomerService {
     @Value("${aws.s3.bucket}")
     private String AWS_BUCKET;
 
-    public Customer createCustomer(Customer customer, MultipartFile file) throws IOException {
+    public Customer createCustomer(Customer customer/*, MultipartFile file*/) throws IOException {
         log.info("Creating one person!");
-        String extensionFile = this.getFileExtension(file);
-        if (!extensionFile.equals("png") && !extensionFile.equals("jpeg") && !extensionFile.equals("jpg"))
-            throw new InvalidTypeFileException("Invalid type file");
+        //String extensionFile = this.getFileExtension(file);
+/*        if (!extensionFile.equals("png") && !extensionFile.equals("jpeg") && !extensionFile.equals("jpg"))
+            throw new InvalidTypeFileException("Invalid type file");*/
 
-        String filename = file.getOriginalFilename();
+/*        String filename = file.getOriginalFilename();
         String fileUrl = "https://" + AWS_BUCKET + ".s3.amazonaws.com/" + filename;
         util.uploadFile(filename, file.getInputStream());
-        customer.setUrl_photo(fileUrl);
+        customer.setUrl_photo(fileUrl);*/
         customer.setPoints(0L);
         return customerRepository.save(customer);
     }

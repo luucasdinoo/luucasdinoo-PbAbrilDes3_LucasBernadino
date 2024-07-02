@@ -21,9 +21,9 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerCreateDto dto,
-                                                              @RequestParam("file") MultipartFile file) throws IOException {
-        var customer = customerService.createCustomer(CustomerMapper.toCustomer(dto), file);
+    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerCreateDto dto/*,
+                                                              @RequestParam("file") MultipartFile file*/) throws IOException {
+        var customer = customerService.createCustomer(CustomerMapper.toCustomer(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(CustomerMapper.toDto(customer));
     }
 
