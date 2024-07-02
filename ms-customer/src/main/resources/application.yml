@@ -9,6 +9,11 @@ aws:
 spring:
   application:
     name: mscustomer
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,3 +28,7 @@ spring:
 
 server:
   port: 8080
+
+mq:
+  queues:
+    payment: payment
