@@ -3,14 +3,15 @@ package br.com.bancoamericano.mscustomer.controller;
 import br.com.bancoamericano.mscustomer.mapper.CustomerMapper;
 import br.com.bancoamericano.mscustomer.models.dto.CustomerCreateDto;
 import br.com.bancoamericano.mscustomer.models.dto.CustomerResponseDto;
-import br.com.bancoamericano.mscustomer.models.dto.CustomerUpdateDto;
 import br.com.bancoamericano.mscustomer.services.CustomerService;
+import br.com.bancoamericano.mscustomer.util.FileUtil;
+import br.com.bancoamericano.mscustomer.util.S3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 @RestController
@@ -19,13 +20,34 @@ import java.io.IOException;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final S3Util util;
 
     @PostMapping
-    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerCreateDto dto/*,
-                                                              @RequestParam("file") MultipartFile file*/) throws IOException {
-        var customer = customerService.createCustomer(CustomerMapper.toCustomer(dto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(CustomerMapper.toDto(customer));
+    public ResponseEntity<CustomerResponseDto> createCustomer(@RequestBody CustomerCreateDto dto) throws IOException {
+        try {
+            File photo = FileUtil.convertToFile(dto.getBase64Photo(), dto.getEmail());
+            var customer = customerService.createCustomer(CustomerMapper.toCustomer(dto), photo);
+            return ResponseEntity.status(HttpStatus.CREATED).body(CustomerMapper.toDto(customer));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+
+/*    @PostMapping
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
+        String filename = file.getOriginalFilename();
+
+        try {
+            util.uploadFile(filename, file.getInputStream());
+            return ResponseEntity.ok("Uploaded file");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Uploaded file failed");
+    }*/
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable Long id) {

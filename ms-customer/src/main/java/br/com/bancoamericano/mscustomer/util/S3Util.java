@@ -11,13 +11,14 @@ import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.*;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.util.Base64;
 
 @Service
 public class S3Util {
@@ -31,7 +32,7 @@ public class S3Util {
     @Value("${aws.s3.bucket}")
     private String AWS_BUCKET;
 
-    public void uploadFile(String fileName, InputStream inputStream)
+    public String uploadFile(String fileName, File file)
             throws S3Exception, AwsServiceException, SdkClientException, IOException {
 
         AwsSessionCredentials credentials = AwsSessionCredentials.create(AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_ACCESS_TOKEN);
@@ -44,10 +45,13 @@ public class S3Util {
 
         PutObjectRequest request = PutObjectRequest.builder()
                 .bucket(AWS_BUCKET)
+                .acl(ObjectCannedACL.PUBLIC_READ)
                 .key(fileName)
                 .build();
 
-        client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
+        //client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
+        client.putObject(request, RequestBody.fromFile(file));
+        return client.utilities().getUrl(url -> url.bucket(this.AWS_BUCKET).key(fileName)).toExternalForm();
     }
 
     public InputStreamResource downloadArquivo(String fileName) {
