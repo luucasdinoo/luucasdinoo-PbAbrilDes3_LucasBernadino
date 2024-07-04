@@ -18,5 +18,6 @@ public class PaymentResponseDto implements Serializable {
     private UUID id;
     private Long customerId;
     private BigDecimal totalPayment;
+    private Long points;
     private LocalDateTime createdDate;
 }

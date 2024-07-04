@@ -3,6 +3,7 @@ package br.com.bancoamericano.mscustomer.controller;
 import br.com.bancoamericano.mscustomer.mapper.CustomerMapper;
 import br.com.bancoamericano.mscustomer.models.dto.CustomerCreateDto;
 import br.com.bancoamericano.mscustomer.models.dto.CustomerResponseDto;
+import br.com.bancoamericano.mscustomer.models.dto.CustomerUpdateDto;
 import br.com.bancoamericano.mscustomer.services.CustomerService;
 import br.com.bancoamericano.mscustomer.util.FileUtil;
 import br.com.bancoamericano.mscustomer.util.S3Util;
@@ -35,20 +36,6 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-/*    @PostMapping
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
-        String filename = file.getOriginalFilename();
-
-        try {
-            util.uploadFile(filename, file.getInputStream());
-            return ResponseEntity.ok("Uploaded file");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Uploaded file failed");
-    }*/
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerResponseDto> getCustomer(@PathVariable Long id) {
         var customer = customerService.getCustomerById(id);
@@ -61,9 +48,15 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateDto dto){
-//        customerService.updateCustomer(id,dto);
-//        return ResponseEntity.noContent().build();
-//    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateDto dto){
+        customerService.updateCustomer(id,dto);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/points/{id}/{points}")
+    public ResponseEntity<Void> updatePoints(@PathVariable("id") Long id, @PathVariable("points") Long points){
+        customerService.updatePoints(id, points);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

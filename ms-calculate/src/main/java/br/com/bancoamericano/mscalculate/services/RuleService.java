@@ -40,7 +40,7 @@ public class RuleService {
             throw new RuleNotFoundException(String.format("Rule with id %s not found or id is null", id));
     }
 
-       public void updateCustomer(Long id, RuleCreateDto dto){
+       public void updateRule(Long id, RuleCreateDto dto){
         Rules ruleById = ruleRepository.findById(id).orElseThrow(()->
                         new RuleNotFoundException(String.format("Customer with id %s not found", id)));
         modelMapper.map(dto, ruleById);
@@ -50,6 +50,7 @@ public class RuleService {
     public CalculateResponseDto calculatePoints(CalculateRequestDto dto){
         Rules rule = getRuleById(dto.getCategoryId());
         BigDecimal total = dto.getValue().multiply(BigDecimal.valueOf(rule.getParity()));
-        return new CalculateResponseDto(total);
+        Long totalPoints = total.longValue();
+        return new CalculateResponseDto(totalPoints);
     }
 }

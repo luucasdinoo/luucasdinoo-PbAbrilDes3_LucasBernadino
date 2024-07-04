@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 @Data
 public class CalculateRuleResponse {
 
-    private BigDecimal total;
+    private Long total;
 }

@@ -9,5 +9,5 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class CalculateResponseDto {
 
-    private BigDecimal total;
+    private Long total;
 }

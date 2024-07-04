@@ -43,12 +43,16 @@ public class PaymentService {
             receivePaymentPublisher.receivePayment(data);
 
             LocalDateTime now = LocalDateTime.now();
-            Payment payment = new Payment(null, data.getCustomerId(), Objects.requireNonNull(ruleResponse.getBody()).getTotal(), now);
+            Payment payment = new Payment(null, data.getCustomerId(), data.getTotal(), now);
             paymentRepository.save(payment);
+
+            customerResourceClient.updatePoints(data.getCustomerId(), Objects.requireNonNull(ruleResponse.getBody()).getTotal());
+
             return PaymentResponseDto.builder()
                     .id(payment.getId())
                     .customerId(payment.getCustomerId())
                     .totalPayment(payment.getTotalPayment())
+                    .points(Objects.requireNonNull(ruleResponse.getBody()).getTotal())
                     .createdDate(payment.getCreatedDate())
                     .build();
         }

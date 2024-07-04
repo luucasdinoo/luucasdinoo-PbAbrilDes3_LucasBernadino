@@ -47,8 +47,8 @@ public class RulesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCustomer(@PathVariable Long id, @RequestBody RuleCreateDto dto){
-       ruleService.updateCustomer(id,dto);
+    public ResponseEntity<Void> updateRule(@PathVariable Long id, @RequestBody RuleCreateDto dto){
+       ruleService.updateRule(id,dto);
        return ResponseEntity.noContent().build();
     }
 
