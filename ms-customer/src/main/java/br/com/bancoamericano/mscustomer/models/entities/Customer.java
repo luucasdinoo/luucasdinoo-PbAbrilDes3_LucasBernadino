@@ -1,16 +1,15 @@
 package br.com.bancoamericano.mscustomer.models.entities;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "customer")
-@NoArgsConstructor @Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
+@Getter @Setter @ToString
 public class Customer implements Serializable {
 
     @Id
@@ -39,4 +38,13 @@ public class Customer implements Serializable {
     @Column(name = "url_photo")
     private String url_photo;
 
+    public Customer(String cpf, String name, String gender, Date birthdate, String email, Long points, String url_photo) {
+        this.cpf = cpf;
+        this.name = name;
+        this.gender = gender;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.points = points;
+        this.url_photo = url_photo;
+    }
 }

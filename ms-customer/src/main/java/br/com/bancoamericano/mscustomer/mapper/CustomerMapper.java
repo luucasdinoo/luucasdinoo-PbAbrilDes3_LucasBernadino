@@ -16,4 +16,8 @@ public class CustomerMapper {
     public static Customer toCustomer (CustomerCreateDto dto) {
         return new ModelMapper().map(dto, Customer.class);
     }
+
+    public static Customer toCustomer (CustomerResponseDto dto) {
+        return new ModelMapper().map(dto, Customer.class);
+    }
 }

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class CustomerCreateDto implements Serializable {
 
     @CPF

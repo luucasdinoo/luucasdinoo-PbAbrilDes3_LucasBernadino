@@ -1,0 +1,25 @@
+aws:
+  credentials:
+    access-key: # access-key
+    secret-key: # sercret-key
+    access-token: # access-token
+  s3:
+    bucket: pbdes3mscustomer
+
+spring:
+  application:
+    name: mscustomer
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+mq:
+  queues:
+    payment: payment

@@ -39,10 +39,7 @@ public class CustomerService {
 
     public void deleteCustomerById(Long id){
         log.info("Deleting one customer by id!");
-        if (id == null)
-            throw new CustomerNotFoundException(String.format("Customer with id %s not found or id is null", id));
-        else
-            customerRepository.deleteById(id);
+        customerRepository.deleteById(id);
     }
     public void updateCustomer(Long id, CustomerUpdateDto dto){
         log.info("Updating one customer by id");

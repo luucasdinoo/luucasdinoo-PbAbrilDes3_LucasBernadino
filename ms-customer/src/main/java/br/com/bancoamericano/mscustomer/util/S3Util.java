@@ -1,12 +1,10 @@
 package br.com.bancoamericano.mscustomer.util;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
-import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
@@ -14,11 +12,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.Base64;
 
 @Service
 public class S3Util {
@@ -49,29 +43,7 @@ public class S3Util {
                 .key(fileName)
                 .build();
 
-        //client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
         client.putObject(request, RequestBody.fromFile(file));
         return client.utilities().getUrl(url -> url.bucket(this.AWS_BUCKET).key(fileName)).toExternalForm();
-    }
-
-    public InputStreamResource downloadArquivo(String fileName) {
-
-        AwsSessionCredentials credentials = AwsSessionCredentials.create(AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_ACCESS_TOKEN);
-        StaticCredentialsProvider provider = StaticCredentialsProvider.create(credentials);
-
-        S3Client client = S3Client.builder()
-                .region(Region.SA_EAST_1)
-                .credentialsProvider(provider)
-                .build();
-
-        GetObjectRequest request = GetObjectRequest.builder()
-                .bucket(AWS_BUCKET)
-                .key(fileName)
-                .build();
-
-        ResponseInputStream<GetObjectResponse> response = client.getObject(request);
-        InputStreamResource resource = new InputStreamResource(response);
-
-        return resource;
     }
 }
