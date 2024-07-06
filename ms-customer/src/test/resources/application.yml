@@ -7,8 +7,6 @@ aws:
     bucket: pbdes3mscustomer
 
 spring:
-  application:
-    name: mscustomer
   rabbitmq:
     host: localhost
     port: 5672

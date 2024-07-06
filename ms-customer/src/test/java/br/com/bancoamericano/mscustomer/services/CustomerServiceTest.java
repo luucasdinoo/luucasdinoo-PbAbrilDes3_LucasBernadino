@@ -121,7 +121,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void addPointa(){
+    void addPoints(){
 
         Customer customer = DINO;
 

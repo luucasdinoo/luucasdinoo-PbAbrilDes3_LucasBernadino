@@ -23,4 +23,9 @@ public class Rules {
     @Column(nullable = false)
     private Integer parity;
 
+    public Rules(String category, Integer parity) {
+        this.category = category;
+        this.parity = parity;
+    }
+
 }

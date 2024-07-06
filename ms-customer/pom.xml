@@ -96,11 +96,6 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.12</version>
-<!--				<configuration>
-					<excludes>
-						<exclude>br.com.bancoamericano.mscustomer.MsCustomerApplicationTests</exclude>
-					</excludes>
-				</configuration>-->
 				<executions>
 					<execution>
 						<id>prepare-agent</id>

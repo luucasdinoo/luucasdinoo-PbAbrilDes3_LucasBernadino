@@ -34,17 +34,14 @@ public class RuleService {
     }
 
     public void deleteRuleById(Long id){
-        if (id != null)
             ruleRepository.deleteById(id);
-        else
-            throw new RuleNotFoundException(String.format("Rule with id %s not found or id is null", id));
     }
 
        public void updateRule(Long id, RuleCreateDto dto){
-        Rules ruleById = ruleRepository.findById(id).orElseThrow(()->
-                        new RuleNotFoundException(String.format("Customer with id %s not found", id)));
-        modelMapper.map(dto, ruleById);
-        ruleRepository.save(ruleById);
+        Rules rule = getRuleById(id);
+        rule.setCategory(dto.getCategory());
+        rule.setParity(dto.getParity());
+        ruleRepository.save(rule);
     }
 
     public CalculateResponseDto calculatePoints(CalculateRequestDto dto){
