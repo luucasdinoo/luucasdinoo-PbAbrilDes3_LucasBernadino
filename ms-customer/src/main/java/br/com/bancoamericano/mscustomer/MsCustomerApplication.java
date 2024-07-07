@@ -11,6 +11,4 @@ public class MsCustomerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MsCustomerApplication.class, args);
 	}
-
-
 }

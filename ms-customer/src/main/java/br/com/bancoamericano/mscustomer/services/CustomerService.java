@@ -30,7 +30,6 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-
     public Customer getCustomerById(Long id){
         log.info("Finding one customer by id");
         return customerRepository.findById(id).orElseThrow(()->

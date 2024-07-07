@@ -31,7 +31,6 @@ public class PaymentService {
                 new PaymentNotFoundException("Payment not found"));
     }
 
-
     public PaymentResponseDto receivePayment(PaymentRequestDto data) {
         ResponseEntity<CustomerData> customer = customerResourceClient.getCustomer(data.getCustomerId());
         if(!customer.getStatusCode().is2xxSuccessful())

@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: mspayment
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: 123456
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+mq:
+  queues:
+    payment: payment
